@@ -52,6 +52,7 @@ const NewShoto: React.FC = () => {
             }
         } catch (error: any) {
             console.log('error', error);
+            setErrors(['An Error Occurred']);
         } finally {
             setLoading(false);
         }
