@@ -16,15 +16,18 @@
     "@heroicons/react": "^2.0.18",
     "@libsql/client": "^0.3.5",
     "class-variance-authority": "^0.7.0",
+    "cookie": "^0.5.0",
     "drizzle-orm": "^0.28.6",
     "nanoid": "^5.0.1",
     "next": "13.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "resend": "^1.1.0",
     "tailwind-merge": "^1.14.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/cookie": "^0.5.2",
     "@types/node": "^20.8.3",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
