@@ -1,5 +1,5 @@
 import { unique, integer, text, sqliteTable } from 'drizzle-orm/sqlite-core';
-import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
+import { InferSelectModel, InferInsertModel, sql } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 
 export const shotos = sqliteTable('shotos', {
@@ -16,6 +16,7 @@ export const users = sqliteTable('users', {
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
     username: text('username').notNull().unique(),
     password: text('password').notNull(),
+    salt: text('salt').notNull(),
     ref: text('ref').notNull().$defaultFn(nanoid).unique(),
 });
 
@@ -38,3 +39,30 @@ export const userShotos = sqliteTable(
 
 export type UserShotoInsert = InferInsertModel<typeof userShotos>;
 export type UserShotoSelect = InferSelectModel<typeof userShotos>;
+
+export const emails = sqliteTable('emails', {
+    id: integer('id', { mode: 'number' })
+        .primaryKey({ autoIncrement: true })
+        .notNull(),
+    ref: text('ref').notNull(),
+});
+
+export type EmailInsert = InferInsertModel<typeof emails>;
+export type EmailSelect = InferSelectModel<typeof emails>;
+
+export const sessions = sqliteTable('sessions', {
+    id: integer('id', { mode: 'number' })
+        .primaryKey({ autoIncrement: true })
+        .notNull(),
+    ref: text('ref').notNull().$defaultFn(nanoid).unique(),
+    sessionRef: text('sessionRef')
+        .notNull()
+        .references(() => users.id),
+    createdAt: text('createdAt')
+        .notNull()
+        .default(sql`CURRENT_TIMESTAMP`),
+    expiresAt: integer('expiresAt', { mode: 'number' }).notNull(),
+});
+
+export type SessionInsert = InferInsertModel<typeof sessions>;
+export type SessionSelect = InferSelectModel<typeof sessions>;
