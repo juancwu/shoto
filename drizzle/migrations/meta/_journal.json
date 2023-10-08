@@ -29,6 +29,13 @@
       "when": 1696775802809,
       "tag": "0003_cuddly_aqueduct",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1696798966192,
+      "tag": "0004_classy_radioactive_man",
+      "breakpoints": true
     }
   ]
 }
