@@ -1,8 +1,10 @@
 'use client';
-import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { useCallback, useState } from 'react';
 import TextInput from '@/components/client/text-input';
 import Button from '@/components/client/button';
-import { useCallback, useState } from 'react';
+import ErrorAlert from '@/components/client/error-alert';
+import SuccessAlert from '@/components/client/success-alert';
+import { flushSync } from 'react-dom';
 
 const NewShoto: React.FC = () => {
     const [shoto, setShoto] = useState('');
@@ -10,6 +12,7 @@ const NewShoto: React.FC = () => {
     const [errors, setErrors] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [newShoto, setNewShoto] = useState('');
 
     const reset = useCallback(() => {
         setShoto('');
@@ -37,12 +40,15 @@ const NewShoto: React.FC = () => {
             });
 
             if (res.status !== 201) {
-                const content = await res.text();
-                setErrors(content.split('\n'));
+                const data = await res.json();
+                setErrors(data?.errors ?? ['An Error Occured']);
             } else {
-                setSuccess(true);
-                setErrors([]);
-                reset();
+                flushSync(() => {
+                    setSuccess(true);
+                    setErrors([]);
+                    setNewShoto(shoto);
+                    reset();
+                });
             }
         } catch (error: any) {
             console.log('error', error);
@@ -53,57 +59,20 @@ const NewShoto: React.FC = () => {
 
     return (
         <form onSubmit={onSubmit} className="flex flex-col gap-y-6">
-            {errors.length > 0 && (
-                <div className="rounded-md border-2 border-red-400 bg-red-950 p-4">
-                    <div className="ml-3">
-                        <h3 className="text-sm font-medium text-red-200">
-                            Not Allowed!
-                        </h3>
-                        <div className="mt-2 text-sm text-red-200">
-                            <ul
-                                role="list"
-                                className="list-disc space-y-1 pl-5"
-                            >
-                                {errors.map((error) => (
-                                    <li key={error}>{error}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            )}
-            {success && (
-                <div className="rounded-md border-2 border-green-400 bg-green-950 p-4">
-                    <div className="flex">
-                        <div className="flex-shrink-0">
-                            <CheckCircleIcon
-                                className="h-5 w-5 text-green-400"
-                                aria-hidden="true"
-                            />
-                        </div>
-                        <div className="ml-3">
-                            <p className="text-sm font-medium text-green-400">
-                                {`Successfully created new shoto: ${shoto}`}
-                            </p>
-                        </div>
-                        <div className="ml-auto pl-3">
-                            <div className="-mx-1.5 -my-1.5">
-                                <button
-                                    type="button"
-                                    className="inline-flex rounded-md bg-green-400 p-1.5 text-green-900 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-950"
-                                    onClick={() => setSuccess(false)}
-                                >
-                                    <span className="sr-only">Dismiss</span>
-                                    <XMarkIcon
-                                        className="h-5 w-5"
-                                        aria-hidden="true"
-                                    />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <ErrorAlert
+                show={errors.length > 0}
+                errors={errors}
+                title="Oops, this is not good."
+            />
+            <SuccessAlert show={success} onDimiss={() => setSuccess(false)}>
+                <p className="text-green-400">
+                    New Shoto Created! Try it out now!
+                    <a
+                        className="mt-2 block font-bold text-blue-400 hover:underline"
+                        href={`/l/${newShoto}`}
+                    >{`https://shoto.at/l/${newShoto}`}</a>
+                </p>
+            </SuccessAlert>
             <div className="flex flex-col gap-y-6 border-b border-white/10 pb-12">
                 <TextInput
                     value={shoto}
