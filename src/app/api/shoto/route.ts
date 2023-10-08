@@ -5,7 +5,6 @@ import { auth } from '@clerk/nextjs';
 import { db } from '@/server/db';
 import { shotos } from '@/server/schema';
 
-
 const dataValidator = z.object({
     name: z
         .string({
@@ -29,7 +28,7 @@ export async function POST(req: Request) {
     try {
         const user = auth();
 
-        if (!user.userId ) {
+        if (!user.userId) {
             return new Response('Unauthorized', { status: 401 });
         }
 
@@ -42,15 +41,18 @@ export async function POST(req: Request) {
             .get();
 
         if (shoto) {
-            return NextResponse.json({
-                errors: [`Shoto with name: ${result.name} already exists.`]
-            }, { status: 400 });
+            return NextResponse.json(
+                {
+                    errors: [`Shoto with name: ${result.name} already exists.`],
+                },
+                { status: 400 }
+            );
         }
 
         await db.insert(shotos).values({
             name: result.name.replace(' ', '-'),
             url: result.url,
-            owner: user.userId
+            owner: user.userId,
         });
 
         console.log(`User with ID: ${user.userId} created a new shoto!`);
@@ -60,8 +62,14 @@ export async function POST(req: Request) {
         });
     } catch (error: any) {
         console.error('Server Error: ', error);
-        return NextResponse.json({
-            errors: error instanceof ZodError ? error.issues.map((i) => i.message) : [error.message]
-        }, { status: 400 })
+        return NextResponse.json(
+            {
+                errors:
+                    error instanceof ZodError
+                        ? error.issues.map((i) => i.message)
+                        : [error.message],
+            },
+            { status: 400 }
+        );
     }
 }
