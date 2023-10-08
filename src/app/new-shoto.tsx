@@ -92,6 +92,11 @@ const NewShoto: React.FC = () => {
                     onChange={(e) => setOriginalURL(e.target.value)}
                     required={true}
                 />
+                <p className="text-sm leading-6">
+                    Original URL must start with{' '}
+                    <span className="font-bold text-white">http://</span> or{' '}
+                    <span className="font-bold text-white">https://</span>
+                </p>
             </div>
             <div className="flex items-center justify-end gap-x-6">
                 <Button
