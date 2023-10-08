@@ -1,5 +1,5 @@
 import { SignUp } from '@clerk/nextjs';
-import clerkFormStyles from '@/components/styles/clark-auth.styles';
+import clerkFormStyles from '@/components/styles/clerk-auth.styles';
 
 export default function Page() {
     return (

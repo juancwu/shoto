@@ -1,4 +1,4 @@
-import clerkFormStyles from '@/components/styles/clark-auth.styles';
+import clerkFormStyles from '@/components/styles/clerk-auth.styles';
 import { SignIn } from '@clerk/nextjs';
 
 export default function Page() {
