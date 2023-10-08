@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "drizzle-kit generate:sqlite --out ./drizzle/migrations --breakpoints --schema=./src/server/schema.ts",
+    "generate:custom": "drizzle-kit generate:sqlite --custom --out ./drizzle/migrations",
     "migrate": "tsx drizzle/migrate",
     "studio": "drizzle-kit studio --config=drizzle.config.ts --port 3333"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.25.3",
     "@heroicons/react": "^2.0.18",
     "@libsql/client": "^0.3.5",
     "class-variance-authority": "^0.7.0",
@@ -20,6 +22,7 @@
     "next": "13.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "resend": "^1.1.0",
     "tailwind-merge": "^1.14.0",
     "zod": "^3.22.4"
   },
