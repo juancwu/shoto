@@ -36,6 +36,13 @@
       "when": 1696798966192,
       "tag": "0004_classy_radioactive_man",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1696801331802,
+      "tag": "0005_little_serpent_society",
+      "breakpoints": true
     }
   ]
 }
