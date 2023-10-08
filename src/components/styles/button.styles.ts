@@ -1,4 +1,4 @@
-import { cva } from 'class-variance-authority';
+import { VariantProps, cva } from 'class-variance-authority';
 
 const buttonStyles = cva(
     'rounded-md px-3 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:text-zinc-400',
@@ -15,5 +15,7 @@ const buttonStyles = cva(
         },
     }
 );
+
+export type ButtonStylesProps = VariantProps<typeof buttonStyles>;
 
 export default buttonStyles;
