@@ -110,7 +110,7 @@ const NewShoto: React.FC = () => {
                     id="shotourl"
                     label="Shoto URL"
                     name="shoto"
-                    prefix="shoto.sh/l/"
+                    prefix="shoto.at/l/"
                     onChange={(e) => setShoto(e.target.value)}
                     required={true}
                 />
