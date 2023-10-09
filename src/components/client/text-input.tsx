@@ -14,7 +14,7 @@ type TextInputProps = {
     name: string;
     value: string;
     onChange: TextInputOnChange;
-};
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 const TextInput: React.FC<TextInputProps> = ({
     value,
