@@ -8,6 +8,8 @@
 ███████ ██   ██  ██████     ██     ██████  
 ```
 
+URL Shortener
+
 </div>
 
 ## Getting Started
