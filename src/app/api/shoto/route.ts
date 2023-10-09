@@ -1,7 +1,9 @@
 import { ZodError, z } from 'zod';
+import { eq } from 'drizzle-orm';
+import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
 import { db } from '@/server/db';
 import { shotos } from '@/server/schema';
-import { eq } from 'drizzle-orm';
 
 const dataValidator = z.object({
     name: z
@@ -24,6 +26,12 @@ const dataValidator = z.object({
 
 export async function POST(req: Request) {
     try {
+        const user = auth();
+
+        if (!user.userId) {
+            return new Response('Unauthorized', { status: 401 });
+        }
+
         const data = await req.json();
         const result = await dataValidator.parseAsync(data);
         const shoto = await db
@@ -33,8 +41,10 @@ export async function POST(req: Request) {
             .get();
 
         if (shoto) {
-            return new Response(
-                `Shoto with name: ${result.name} already exists.`,
+            return NextResponse.json(
+                {
+                    errors: [`Shoto with name: ${result.name} already exists.`],
+                },
                 { status: 400 }
             );
         }
@@ -42,20 +52,24 @@ export async function POST(req: Request) {
         await db.insert(shotos).values({
             name: result.name.replace(' ', '-'),
             url: result.url,
+            owner: user.userId,
         });
-        console.log('save new shoto');
-        return new Response('Saved!', {
+
+        console.log(`User with ID: ${user.userId} created a new shoto!`);
+
+        return new Response('', {
             status: 201,
         });
     } catch (error: any) {
-        console.log('server error', error);
-        return new Response(
-            error instanceof ZodError
-                ? error.issues.map((i) => i.message).join('\n')
-                : error.message,
+        console.error('Server Error: ', error);
+        return NextResponse.json(
             {
-                status: error instanceof ZodError ? 400 : 500,
-            }
+                errors:
+                    error instanceof ZodError
+                        ? error.issues.map((i) => i.message)
+                        : [error.message],
+            },
+            { status: 400 }
         );
     }
 }

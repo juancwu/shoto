@@ -8,6 +8,41 @@
       "when": 1696724281914,
       "tag": "0000_great_wolverine",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1696726133384,
+      "tag": "0001_large_mephistopheles",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1696726195243,
+      "tag": "0002_rainy_sasquatch",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1696775802809,
+      "tag": "0003_cuddly_aqueduct",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1696798966192,
+      "tag": "0004_classy_radioactive_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1696801331802,
+      "tag": "0005_little_serpent_society",
+      "breakpoints": true
     }
   ]
 }
