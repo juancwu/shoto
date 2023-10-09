@@ -101,7 +101,7 @@ const NewShoto: React.FC = () => {
             <div className="flex items-center justify-end gap-x-6">
                 <Button
                     type="reset"
-                    intent="secondary"
+                    intent="clear"
                     onClick={reset}
                     disabled={loading}
                 >
