@@ -83,7 +83,22 @@ const NewShoto: React.FC = () => {
                     prefix="shoto.at/l/"
                     onChange={(e) => setShoto(e.target.value)}
                     required={true}
+                    aria-describedby="shoto-url-description-1 shoto-url-description-2 shoto-url-description-3"
                 />
+                <p className="text-sm leading-6" id="shoto-url-description-1">
+                    Choose a custom keyword for your Shoto URL
+                </p>
+                <p className="text-sm leading-6" id="shoto-url-description-2">
+                    For example: shoto.at/l/
+                    <span className="font-bold text-white">my-shoto</span>
+                </p>
+                <p className="text-sm leading-6" id="shoto-url-description-3">
+                    Now when you type{' '}
+                    <span className="font-bold text-white">
+                        shoto.at/l/my-shoto
+                    </span>{' '}
+                    in a browser, it will open the original URL
+                </p>
                 <TextInput
                     value={originalURL}
                     id="originalurl"
@@ -91,8 +106,9 @@ const NewShoto: React.FC = () => {
                     name="url"
                     onChange={(e) => setOriginalURL(e.target.value)}
                     required={true}
+                    aria-describedby="original-url-description"
                 />
-                <p className="text-sm leading-6">
+                <p className="text-sm leading-6" id="original-url-description">
                     Original URL must start with{' '}
                     <span className="font-bold text-white">http://</span> or{' '}
                     <span className="font-bold text-white">https://</span>
