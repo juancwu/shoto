@@ -37,7 +37,7 @@ const TextInput: React.FC<TextInputProps> = ({
             </label>
             <div className="mt-2 flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                 {prefix && (
-                    <span className="flex flex-shrink-0 select-none items-center pl-3 text-zinc-400 sm:text-sm">
+                    <span className="flex flex-shrink-0 select-none items-center pl-3 text-zinc-400">
                         {prefix}
                     </span>
                 )}
