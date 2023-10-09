@@ -1,5 +1,6 @@
 'use client';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import IconButton from './icon-button';
 
 type SuccessAlertProps = {
     onDimiss: React.MouseEventHandler;
@@ -27,16 +28,13 @@ const SuccessAlert: React.FC<SuccessAlertProps> = ({
                 </div>
                 <div className="ml-3">{children}</div>
                 <div className="ml-auto pl-3">
-                    <div className="-mx-1.5 -my-1.5">
-                        <button
-                            type="button"
-                            className="inline-flex rounded-md bg-green-400 p-1.5 text-green-900 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-950"
-                            onClick={onDimiss}
-                        >
-                            <span className="sr-only">{dismissText}</span>
+                    <IconButton
+                        icon={
                             <XMarkIcon className="h-5 w-5" aria-hidden="true" />
-                        </button>
-                    </div>
+                        }
+                        label={dismissText}
+                        onClick={onDimiss}
+                    />
                 </div>
             </div>
         </div>

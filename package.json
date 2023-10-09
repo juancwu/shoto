@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.25.3",
+    "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@libsql/client": "^0.3.5",
     "class-variance-authority": "^0.7.0",
