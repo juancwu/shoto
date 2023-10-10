@@ -13,14 +13,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
+    shotos,
 }: {
     children: React.ReactNode;
+    parallel: React.ReactNode;
+    shotos: React.ReactNode;
 }) {
     return (
         <ClerkProvider>
             <html lang="en">
                 <body className={inter.className}>
-                    {children}
+                    <main className="h-full w-full px-6 md:px-32">
+                        {children}
+                        {shotos}
+                    </main>
                     <Analytics />
                 </body>
             </html>
