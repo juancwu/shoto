@@ -29,6 +29,7 @@ export async function GET(
             },
         });
     } catch (error: any) {
-        return new Response(error.message, { status: 500 });
+        console.error('Server Error: ', error.message);
+        return new Response('Oops this is not good x.x', { status: 500 });
     }
 }

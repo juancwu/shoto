@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { eq } from 'drizzle-orm';
 import { auth } from '@clerk/nextjs';
-import NewShoto from '@/app/new-shoto';
 import { db } from '@/server/db';
 import { shotos as shotosTable } from '@/server/schema';
+import NewShoto from '@/components/client/new-shoto';
 import ShotoList from '@/components/client/shoto-list';
 import DropDownMenu from '@/components/client/dropdown-menu';
 
