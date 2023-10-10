@@ -14,6 +14,7 @@ type TextInputProps = {
     name: string;
     value: string;
     onChange: TextInputOnChange;
+    srLabel?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -25,13 +26,18 @@ const TextInput: React.FC<TextInputProps> = ({
     required,
     prefix,
     placeholder,
+    srLabel,
     type = 'text',
 }) => {
     return (
         <div>
             <label
                 htmlFor={id}
-                className="block text-sm font-medium leading-6 text-white"
+                className={
+                    srLabel
+                        ? 'sr-only'
+                        : 'block text-sm font-medium leading-6 text-white'
+                }
             >
                 {label}
             </label>

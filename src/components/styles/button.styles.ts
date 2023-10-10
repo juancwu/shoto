@@ -10,6 +10,7 @@ const buttonStyles = cva(
                 secondary:
                     'border-2 border-indigo-600 bg-indigo-950 text-indigo-400 opacity-75 enabled:hover:opacity-100 enabled:focus-visible:opacity-100 disabled:border-white/10 disabled:bg-zinc-900',
                 clear: 'hover:text-indigo-400 focus-visible:text-indigo-400',
+                danger: 'bg-red-500 text-red-100 hover:bg-red-400 focus-visible:bg-red-400 focus-visible:outline-red-400',
             },
         },
         defaultVariants: {

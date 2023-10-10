@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import { eq } from 'drizzle-orm';
 import { auth } from '@clerk/nextjs';
 import NewShoto from '@/app/new-shoto';
 import { db } from '@/server/db';
-import SignOutButton from '@/components/client/sign-out-button';
 import { shotos as shotosTable } from '@/server/schema';
-import { eq } from 'drizzle-orm';
 import ShotoList from '@/components/client/shoto-list';
+import DropDownMenu from '@/components/client/dropdown-menu';
 
 export default async function Home() {
     const { userId } = auth();
@@ -26,7 +26,7 @@ export default async function Home() {
     return (
         <main className="h-full w-full px-6 md:px-32">
             <nav className="flex justify-end border-b border-b-white/10 py-6">
-                <SignOutButton />
+                <DropDownMenu />
             </nav>
             <div className="w-full">
                 <div className="flex justify-center">
