@@ -1,6 +1,6 @@
 'use client';
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useCallback, useRef, useState } from 'react';
 import {
     Bars3Icon,
     ArrowRightOnRectangleIcon,
@@ -19,6 +19,21 @@ const DropDownMenu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState('');
     const validConfirmDelete = useRef('Delete my account now');
+
+    const handleDelete = useCallback(async () => {
+        try {
+            const res = await fetch('/api/account', {
+                method: 'DELETE',
+            });
+
+            if (res.status === 200) {
+                // log user out
+                signOut();
+            }
+        } catch (error: any) {
+            console.error(error);
+        }
+    }, [signOut]);
 
     return (
         <>
@@ -102,7 +117,7 @@ const DropDownMenu: React.FC = () => {
                     setConfirmDelete('');
                     setIsOpen(false);
                 }}
-                onConfirm={() => console.log('confirm')}
+                onConfirm={handleDelete}
                 intent="danger"
                 disabledConfirm={confirmDelete !== validConfirmDelete.current}
             >
