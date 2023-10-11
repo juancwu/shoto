@@ -70,8 +70,8 @@ const NewShoto: React.FC = () => {
                     New Shoto Created! Try it out now!
                     <a
                         className="mt-2 block font-bold text-blue-400 hover:underline"
-                        href={`/${newShoto}`}
-                    >{`https://shoto.at/${newShoto}`}</a>
+                        href={`/l/${newShoto}`}
+                    >{`https://shoto.at/l/${newShoto}`}</a>
                 </p>
             </SuccessAlert>
             <div className="flex flex-col gap-y-6 border-b border-white/10 pb-12">
@@ -80,7 +80,7 @@ const NewShoto: React.FC = () => {
                     id="shotourl"
                     label="Shoto URL"
                     name="shoto"
-                    prefix="shoto.at/"
+                    prefix="shoto.at/l/"
                     onChange={(e) => setShoto(e.target.value)}
                     required={true}
                     aria-describedby="shoto-url-description-1 shoto-url-description-2 shoto-url-description-3"
@@ -89,13 +89,13 @@ const NewShoto: React.FC = () => {
                     Choose a custom keyword for your Shoto URL
                 </p>
                 <p className="text-sm leading-6" id="shoto-url-description-2">
-                    For example: shoto.at/
+                    For example: shoto.at/l/
                     <span className="font-bold text-white">my-shoto</span>
                 </p>
                 <p className="text-sm leading-6" id="shoto-url-description-3">
                     Now when you type{' '}
                     <span className="font-bold text-white">
-                        shoto.at/my-shoto
+                        shoto.at/l/my-shoto
                     </span>{' '}
                     in a browser, it will open the original URL
                 </p>
