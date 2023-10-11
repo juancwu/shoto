@@ -12,16 +12,8 @@ URL Shortener
 
 </div>
 
-## Getting Started
+## Want to contribute?
 
-First, install all dependencies:
+Please read the [Contribution Guidelines](/docs/CONTRIBUTING.md)
 
-```bash
-pnpm install
-```
-
-Then, run the development server:
-
-```bash
-pnpm dev
-```
+Happy Hacking! :)
