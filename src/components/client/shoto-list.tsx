@@ -36,6 +36,10 @@ const ShotoList: React.FC<ShotoListProps> = ({ data }) => {
         }
     }, []);
 
+    if (shotos.length < 1) {
+        return <p>{"Looks like you haven't made any shotos."}</p>;
+    }
+
     return (
         <ul role="list" className="divide-y divide-white/10">
             {shotos.map((shoto) => (
