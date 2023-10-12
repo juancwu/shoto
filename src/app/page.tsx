@@ -1,10 +1,7 @@
 import Link from 'next/link';
-import { eq } from 'drizzle-orm';
 import { auth } from '@clerk/nextjs';
 import NewShoto from '@/app/new-shoto';
-import { db } from '@/server/db';
-import { shotos as shotosTable } from '@/server/schema';
-import ShotoList from '@/components/client/shoto-list';
+import ShotoList from '@/components/server/shoto-list';
 import DropDownMenu from '@/components/client/dropdown-menu';
 
 export default async function Home() {
@@ -17,11 +14,6 @@ export default async function Home() {
             </main>
         );
     }
-    const shotos = await db
-        .select()
-        .from(shotosTable)
-        .where(eq(shotosTable.owner, userId))
-        .all();
 
     return (
         <main className="h-full w-full px-6 md:px-32">
@@ -53,7 +45,7 @@ export default async function Home() {
                     </div>
                 </div>
                 <div>
-                    <ShotoList data={shotos} />
+                    <ShotoList />
                 </div>
             </div>
         </main>
