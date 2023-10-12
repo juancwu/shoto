@@ -5,23 +5,44 @@ import {
 } from '@heroicons/react/20/solid';
 import IconButton from '@/components/client/icon-button';
 import { ShotoSelect } from '@/server/schema';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useTransition } from 'react';
 import Modal from './modal';
+import { useRouter } from 'next/navigation';
 
 type ShotoItemControlsProps = {
     shoto: ShotoSelect;
-    onDelete: (shoto: ShotoSelect) => void | Promise<void>;
-    disabled?: boolean;
 };
 
-const ShotoItemControls: React.FC<ShotoItemControlsProps> = ({
-    shoto,
-    onDelete,
-    disabled,
-}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleModalClose = useCallback(() => setIsOpen(false), []);
-    const handleModalOpen = useCallback(() => setIsOpen(true), []);
+const ShotoItemControls: React.FC<ShotoItemControlsProps> = ({ shoto }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [isPending, startTransition] = useTransition();
+    const handleModalClose = useCallback(() => setIsModalOpen(false), []);
+    const handleModalOpen = useCallback(() => setIsModalOpen(true), []);
+    const router = useRouter();
+    const isMutating = isDeleting || isPending;
+
+    const deleteShoto = async () => {
+        if (isMutating) return;
+
+        try {
+            setIsDeleting(true);
+            const res = await fetch(`/api/shoto/${shoto.ref}`, {
+                method: 'DELETE',
+            });
+            if (res.status === 200) {
+                startTransition(() => {
+                    router.refresh();
+                });
+            } else {
+                console.error('Error deleting shoto');
+            }
+        } catch (error: any) {
+            console.error('Error deleting shoto', error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
 
     return (
         <>
@@ -43,17 +64,14 @@ const ShotoItemControls: React.FC<ShotoItemControlsProps> = ({
                     icon={<TrashIcon className="h-5 w-5" aria-hidden="true" />}
                     className="text-red-400 transition hover:bg-red-950 focus:bg-red-950 focus:ring-red-400 focus:ring-offset-red-900"
                     onClick={handleModalOpen}
-                    disabled={disabled}
+                    disabled={isMutating}
                 />
             </div>
             <Modal
                 title="Delete Shoto"
-                isOpen={isOpen}
+                isOpen={isModalOpen}
                 onClose={handleModalClose}
-                onConfirm={() => {
-                    onDelete(shoto);
-                    setIsOpen(false);
-                }}
+                onConfirm={deleteShoto}
                 confirmText="Yes, delete the shoto"
                 cancelText="No, I don't want to"
                 intent="danger"

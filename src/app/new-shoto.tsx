@@ -1,18 +1,21 @@
 'use client';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import TextInput from '@/components/client/text-input';
 import Button from '@/components/client/button';
 import ErrorAlert from '@/components/client/error-alert';
 import SuccessAlert from '@/components/client/success-alert';
-import { flushSync } from 'react-dom';
 
 const NewShoto: React.FC = () => {
     const [shoto, setShoto] = useState('');
     const [originalURL, setOriginalURL] = useState('');
     const [errors, setErrors] = useState<string[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [newShoto, setNewShoto] = useState('');
+    const [isPending, startTransition] = useTransition();
+    const isMutating = isPending || isLoading;
+    const router = useRouter();
 
     const reset = useCallback(() => {
         setShoto('');
@@ -22,7 +25,7 @@ const NewShoto: React.FC = () => {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (loading) return;
+        if (isLoading) return;
 
         const spaceRegex = /\s+/g;
 
@@ -43,7 +46,8 @@ const NewShoto: React.FC = () => {
                 const data = await res.json();
                 setErrors(data?.errors ?? ['An Error Occured']);
             } else {
-                flushSync(() => {
+                startTransition(() => {
+                    router.refresh();
                     setSuccess(true);
                     setErrors([]);
                     setNewShoto(shoto);
@@ -119,13 +123,13 @@ const NewShoto: React.FC = () => {
                     type="reset"
                     intent="clear"
                     onClick={reset}
-                    disabled={loading}
+                    disabled={isMutating}
                 >
                     Clear
                 </Button>
                 <Button
                     disabled={
-                        loading || shoto.length < 1 || originalURL.length < 1
+                        isMutating || shoto.length < 1 || originalURL.length < 1
                     }
                     type="submit"
                     intent="primary"
