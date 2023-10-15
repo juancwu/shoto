@@ -1,13 +1,14 @@
 'use client';
+import { useCallback, useState, useTransition } from 'react';
 import {
     ArrowTopRightOnSquareIcon,
     TrashIcon,
 } from '@heroicons/react/20/solid';
+import { useRouter } from 'next/navigation';
 import IconButton from '@/components/client/icon-button';
 import { ShotoSelect } from '@/server/schema';
-import { useCallback, useState, useTransition } from 'react';
-import Modal from './modal';
-import { useRouter } from 'next/navigation';
+import Modal from '@/components/client/modal';
+import IconLink from '@/components/server/icon-link';
 
 type ShotoItemControlsProps = {
     shoto: ShotoSelect;
@@ -47,8 +48,7 @@ const ShotoItemControls: React.FC<ShotoItemControlsProps> = ({ shoto }) => {
     return (
         <>
             <div className="flex items-center gap-x-6">
-                <IconButton
-                    as="a"
+                <IconLink
                     href={shoto.url}
                     label={`Visit shoto with name: ${shoto.name}`}
                     icon={
