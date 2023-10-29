@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs';
-import NewShoto from '@/app/new-shoto';
+import NewShoto from '@/app/new-shoto-form';
 import ShotoList from '@/components/server/shoto-list';
 import DropDownMenu from '@/components/client/dropdown-menu';
 
