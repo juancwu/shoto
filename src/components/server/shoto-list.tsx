@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import { auth } from '@clerk/nextjs';
 import { db } from '@/server/db';
 import { shotos as shotosTable } from '@/server/schema';
@@ -14,6 +14,7 @@ export default async function ShotoList() {
         .select()
         .from(shotosTable)
         .where(eq(shotosTable.owner, userId))
+        .orderBy(desc(shotosTable.id))
         .all();
 
     if (shotos.length < 1) {
